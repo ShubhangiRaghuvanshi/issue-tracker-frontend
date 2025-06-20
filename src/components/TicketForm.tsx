@@ -11,19 +11,23 @@ interface TicketFormProps {
   projectId: string;
   teamMembers: TeamMember[];
   onTicketCreated?: (ticket: any) => void;
+  initialData?: any;
+  editMode?: boolean;
 }
 
 const TicketForm: React.FC<TicketFormProps> = ({
   projectId,
   teamMembers,
   onTicketCreated,
+  initialData,
+  editMode,
 }) => {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    priority: "medium",
-    status: "open",
-    assignee: "",
+    title: initialData?.title || "",
+    description: initialData?.description || "",
+    priority: initialData?.priority || "medium",
+    status: initialData?.status || "open",
+    assignee: initialData?.assignee?._id || initialData?.assignee || "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -42,34 +46,51 @@ const TicketForm: React.FC<TicketFormProps> = ({
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://localhost:5000/api/tickets",
-        {
-          ...formData,
-          projectId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      let response;
+      if (editMode && initialData?._id) {
+        response = await axios.put(
+          `http://localhost:5000/api/tickets/${initialData._id}`,
+          {
+            ...formData,
+            projectId,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        response = await axios.post(
+          "http://localhost:5000/api/tickets",
+          {
+            ...formData,
+            projectId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
 
       if (onTicketCreated) {
         onTicketCreated(response.data);
       }
 
-      // Reset form
-      setFormData({
-        title: "",
-        description: "",
-        priority: "medium",
-        status: "open",
-        assignee: "",
-      });
+      if (!editMode) {
+        setFormData({
+          title: "",
+          description: "",
+          priority: "medium",
+          status: "open",
+          assignee: "",
+        });
+      }
     } catch (err: any) {
       console.error(err);
-      setError("Failed to create ticket");
+      setError(editMode ? "Failed to update ticket" : "Failed to create ticket");
     } finally {
       setLoading(false);
     }
@@ -80,7 +101,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
       onSubmit={handleSubmit}
       className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto space-y-4"
     >
-      <h2 className="text-xl font-semibold mb-4">Create New Ticket</h2>
+      <h2 className="text-xl font-semibold mb-4">{editMode ? 'Edit Ticket' : 'Create New Ticket'}</h2>
 
       {error && <p className="text-red-500 text-sm">{error}</p>}
 
@@ -156,7 +177,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
         disabled={loading}
         className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
       >
-        {loading ? "Creating..." : "Create Ticket"}
+        {loading ? (editMode ? 'Saving...' : 'Creating...') : (editMode ? 'Save Changes' : 'Create Ticket')}
       </button>
     </form>
   );
