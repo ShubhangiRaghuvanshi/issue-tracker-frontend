@@ -71,7 +71,7 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({ tickets, onStatusChange }) =>
     // Save status change via API
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/tickets/${ticket._id}`, {
+      await fetch(`https://issue-tracker-backend-3.onrender.com/api/tickets/${ticket._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
