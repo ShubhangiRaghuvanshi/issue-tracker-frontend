@@ -39,7 +39,7 @@ const ProjectList: React.FC = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/projects', {
+      const response = await fetch('https://issue-tracker-backend-3.onrender.com/api/projects', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -62,7 +62,7 @@ const ProjectList: React.FC = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/projects', {
+      const response = await fetch('https://issue-tracker-backend-3.onrender.com/api/projects', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ const ProjectList: React.FC = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/projects/${projectId}`, {
+      const response = await fetch(`https://issue-tracker-backend-3.onrender.com/api/projects/${projectId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

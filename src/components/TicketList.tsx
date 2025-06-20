@@ -59,7 +59,7 @@ const TicketList: React.FC<TicketListProps> = ({ tickets, user, project, onTicke
         if (!window.confirm('Are you sure you want to delete this ticket?')) return;
         try {
             const token = localStorage.getItem('token');
-            await fetch(`http://localhost:5000/api/tickets/${ticketId}`, {
+            await fetch(`https://issue-tracker-backend-3.onrender.com/api/tickets/${ticketId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

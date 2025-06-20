@@ -74,7 +74,7 @@ const ProjectDetails: React.FC<{ selectedProject?: string }> = ({ selectedProjec
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/projects/${id}`, {
+      const response = await fetch(`https://issue-tracker-backend-3.onrender.com/api/projects/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -99,7 +99,7 @@ const ProjectDetails: React.FC<{ selectedProject?: string }> = ({ selectedProjec
       if (priorityFilter) params.append('priority', priorityFilter);
       if (assigneeFilter) params.append('assignee', assigneeFilter);
       if (search) params.append('search', search);
-      const response = await fetch(`http://localhost:5000/api/tickets?${params.toString()}`, {
+      const response = await fetch(`https://issue-tracker-backend-3.onrender.com/api/tickets?${params.toString()}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -133,7 +133,7 @@ const ProjectDetails: React.FC<{ selectedProject?: string }> = ({ selectedProjec
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/projects/${id}`, {
+      const response = await fetch(`https://issue-tracker-backend-3.onrender.com/api/projects/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const ProjectDetails: React.FC<{ selectedProject?: string }> = ({ selectedProjec
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/projects/${id}/members`, {
+      const response = await fetch(`https://issue-tracker-backend-3.onrender.com/api/projects/${id}/members`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ const ProjectDetails: React.FC<{ selectedProject?: string }> = ({ selectedProjec
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/projects/${id}/members/${userId}`, {
+      const response = await fetch(`https://issue-tracker-backend-3.onrender.com/api/projects/${id}/members/${userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

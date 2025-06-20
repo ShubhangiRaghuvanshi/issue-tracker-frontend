@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (data: { name: string; email: string; password: string }): Promise<void> => {
     try {
-      const response = await axios.post<{ user: User; token: string }>('http://localhost:5000/api/auth/register', data);
+      const response = await axios.post<{ user: User; token: string }>('https://issue-tracker-backend-3.onrender.com/api/auth/register', data);
       setUser(response.data.user);
       localStorage.setItem('token', response.data.token);
     } catch (error) {
@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (data: { email: string; password: string }): Promise<void> => {
     try {
-      const response = await axios.post<{ user: User; token: string }>('http://localhost:5000/api/auth/login', data);
+      const response = await axios.post<{ user: User; token: string }>('https://issue-tracker-backend-3.onrender.com/api/auth/login', data);
       setUser(response.data.user);
       localStorage.setItem('token', response.data.token);
     } catch (error) {

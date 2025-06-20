@@ -9,7 +9,7 @@ const Dashboard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       const token = localStorage.getItem('token');
       if (!token) return;
       try {
-        const res = await fetch('http://localhost:5000/api/projects', {
+        const res = await fetch('https://issue-tracker-backend-3.onrender.com/api/projects', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

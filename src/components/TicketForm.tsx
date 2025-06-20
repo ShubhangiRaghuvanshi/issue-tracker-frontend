@@ -49,7 +49,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
       let response;
       if (editMode && initialData?._id) {
         response = await axios.put(
-          `http://localhost:5000/api/tickets/${initialData._id}`,
+          `https://issue-tracker-backend-3.onrender.com/api/tickets/${initialData._id}`,
           {
             ...formData,
             projectId,
@@ -62,7 +62,7 @@ const TicketForm: React.FC<TicketFormProps> = ({
         );
       } else {
         response = await axios.post(
-          "http://localhost:5000/api/tickets",
+          "https://issue-tracker-backend-3.onrender.com/api/tickets",
           {
             ...formData,
             projectId,
